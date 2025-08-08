@@ -117,9 +117,6 @@ node dist/server.js
 - ✅ **Difficult Review**: Provides historical summary viewing functionality
 - ✅ **Manual Organization Tedium**: One-click automatic summarization and saving
 
-## 📄 License
-
-MIT License
 
 ## 🤝 Contributing
 
