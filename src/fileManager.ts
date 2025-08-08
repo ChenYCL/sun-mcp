@@ -7,7 +7,7 @@ export class FileManager {
   private readonly sunDir = '.sun';
 
   constructor() {
-    this.ensureSunDirectory();
+    // Don't create directory in constructor to avoid blocking
   }
 
   /**
@@ -15,10 +15,43 @@ export class FileManager {
    */
   private async ensureSunDirectory(): Promise<void> {
     try {
-      await fs.ensureDir(this.sunDir);
+      // Get current working directory
+      const cwd = process.cwd();
+      console.error(`📁 Current working directory: ${cwd}`);
+
+      // Try to create .sun directory in current directory
+      const targetDir = path.resolve(cwd, this.sunDir);
+      await fs.ensureDir(targetDir);
+      console.error(`✅ .sun directory created at: ${targetDir}`);
+
     } catch (error) {
-      console.error('Failed to create .sun directory:', error);
-      throw error;
+      console.error('❌ Failed to create .sun directory in current directory:', error);
+
+      // Try to create in user's home directory as fallback
+      const homeDir = process.env.HOME || process.env.USERPROFILE;
+      if (homeDir) {
+        try {
+          const fallbackSunDir = path.join(homeDir, '.sun');
+          await fs.ensureDir(fallbackSunDir);
+          console.error(`✅ Created .sun directory in home directory: ${fallbackSunDir}`);
+          // Update sunDir to use fallback
+          (this as any).sunDir = fallbackSunDir;
+          return;
+        } catch (fallbackError) {
+          console.error('❌ Failed to create .sun directory in home directory:', fallbackError);
+        }
+      }
+
+      // Final fallback to temp directory
+      try {
+        const tempSunDir = path.join('/tmp', '.sun');
+        await fs.ensureDir(tempSunDir);
+        console.error(`✅ Created .sun directory in temp location: ${tempSunDir}`);
+        (this as any).sunDir = tempSunDir;
+      } catch (tempError) {
+        console.error('❌ Failed to create .sun directory in temp location:', tempError);
+        throw new Error(`Cannot create .sun directory anywhere. Please check permissions.`);
+      }
     }
   }
 
