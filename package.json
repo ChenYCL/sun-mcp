@@ -1,6 +1,6 @@
 {
   "name": "sun-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP server for summarizing agent sessions with -sun command. Supports Chinese and English summaries.",
   "main": "dist/server.js",
   "type": "module",
