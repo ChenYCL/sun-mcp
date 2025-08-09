@@ -4,6 +4,10 @@
 
 [English](./README_EN.md) | 中文
 
+<a href="https://glama.ai/mcp/servers/@ChenYCL/sun-mcp">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@ChenYCL/sun-mcp/badge" alt="Sun Server MCP server" />
+</a>
+
 ## ✨ 功能特性
 
 - 🌞 **简单命令**: 只需输入 `-sun` 即可触发会话总结
@@ -121,7 +125,6 @@ node dist/server.js
 - ✅ **上下文丢失**: 结构化保存会话精髓和成果
 - ✅ **难以回顾**: 提供历史总结查看功能
 - ✅ **手动整理繁琐**: 一键自动总结和保存
-
 
 ## 🤝 贡献
 
